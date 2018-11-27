@@ -17,7 +17,7 @@ class GenreController extends Controller
     public function list(EntityManagerInterface $em)
     {
 
-        $genres = $em->getRepository(Genre::class)->findAllFull();
+        $genres = $em->getRepository(Genre::class)->findAll();
 
         return $this->render('genre/list.html.twig', [
             'genres' => $genres,

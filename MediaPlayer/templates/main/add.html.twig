@@ -1,6 +1,6 @@
 {% extends 'base.html.twig'  %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}COUCOU{% endblock %}
 
 {% block body %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,11 +31,28 @@
         </div>
     </nav>
 
-    <div class="jumbotron">
-        <h1>Ajouter un Média</h1>
-        {{ form(formAdd) }}
-        {{ form_widget(formAdd) }}
-        <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
-        {{ form_end(formAdd) }}
+    <div class="jumbotron text-center">
+        <div class="col-md-5">
+                <h1>Ajouter un Média</h1>
+                {{ form_start(formAdd) }}
+                <div class="form-group">
+                    {{ form_label(formAdd.name, 'Nom') }}
+                    {{ form_widget(formAdd.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formAdd.description, 'Description') }}
+                    {{ form_widget(formAdd.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formAdd.picture, 'Fichier Image') }}
+                    {{ form_widget(formAdd.picture, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formAdd.genre, 'Genre') }}
+                    {{ form_widget(formAdd.genre, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
+                {{ form_end(formAdd) }}
+            </div>
     </div>
 {% endblock %}

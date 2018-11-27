@@ -16,7 +16,7 @@ class MediaController extends Controller
     public function list(EntityManagerInterface $em)
     {
 
-        $medias = $em->getRepository(Media::class)->findAllFull();
+        $medias = $em->getRepository(Media::class)->findAll();
 
         return $this->render('media/list.html.twig', [
             'medias' => $medias,

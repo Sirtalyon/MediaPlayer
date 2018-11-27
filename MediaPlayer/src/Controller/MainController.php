@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Genre;
+use App\Entity\Media;
+use App\Entity\TypeMedia;
 use App\Entity\Utilisateur;
+use App\Form\MediaType;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,15 +96,28 @@ class MainController extends Controller
     /**
      * @Route("/addMedia", name="formMedia")
      */
-    public function formMedia(Request $request){
+    public function formMedia(Request $request, EntityManagerInterface $em){
 
         $media = new Media();
+        $typeMedia = $em->getRepository(TypeMedia::class)->findAll() ;
+        $genre = $em->getRepository(Genre::class)->findAll();
 
-        $formAdd = $this->createForm(AddMediaType::class, $media);
+
+
+        $formAdd = $this->createForm(MediaType::class, $media);
         $formAdd->handleRequest($request);
 
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
         return $this->render('main/add.html.twig', [
-            'formAdd' => $formAdd->createView()
+            'formAdd' => $formAdd->createView(),
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
 
     }

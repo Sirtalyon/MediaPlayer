@@ -6,7 +6,7 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <div style="width: 100%; max-width: 330px; padding: 15px; margin: auto;" class="my-auto">
+    <div style="width: 100%; max-width: 330px; padding: 15px; margin: auto; margin-top: 150px !important;" class="my-auto shadow p-3 mb-5 bg-white rounded">
         <form action="{{ path('login') }}" method="post" class="form-signin">
             <h1 class="h3 mb-3 font-weight-normal" style="color:#1e7e34;">Ecran de Connexion</h1>
             <label for="username" class="sr-only">Nom d'utilisateur</label>
