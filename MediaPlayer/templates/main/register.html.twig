@@ -1,0 +1,58 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="width: 100%; max-width: 330px; padding: 15px; margin: auto;" class="my-auto">
+        <h1 class="h3 mb-3 font-weight-normal" style="color:#1e7e34;">S'enregistrer</h1>
+    {#    <form action="{{ path('register') }}" method="post" class="form-signin">
+
+
+
+            <label for="form_lastname" class="sr-only">Nom de Famille</label>
+            <input type="text" name="form[lastname]" id="form_lastname" class="form-control" placeholder="Nom" required autofocus style="margin-bottom: 10px">
+
+
+            <label for="form_firstname" class="sr-only">Prénom</label>
+            <input type="text" name="form[firstname]" id="form_firstname" class="form-control" placeholder="Prénom" required autofocus style="margin-bottom: 10px">
+
+
+            <label for="form_email" class="sr-only">Email</label>
+            <input type="email" name="form[email]" id="form_email" class="form-control" placeholder="Email" required autofocus style="margin-bottom: 10px">
+
+
+            <label for="form_username" class="sr-only">UserName</label>
+            <input type="text" name="form[username]" id="form_username" class="form-control" placeholder="UserName" required autofocus style="margin-bottom: 10px">
+
+            <label for="form_password" class="sr-only">Mot de passe</label>
+            <input type="password" name="form[password]" id="form_password" class="form-control" placeholder="Mot de Passe" required style="margin-bottom: 10px">
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Valider l'inscription</button>
+
+        </form>#}
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.lastname, 'Nom') }}
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.firstname, 'Prénom') }}
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, 'E-mail') }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.username, 'Nom d\'utilisateur') }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password, 'Mot de passe') }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Valider l'inscription</button>
+            {{ form_end(form) }}
+        <a href="{{ path('login') }}">Déjà connecté? </a>
+    </div>
+{% endblock %}

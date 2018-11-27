@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h1>Add category!</h1>
+
+
+    {{ form_start(categoryForm, {'attr': {'novalidate': 'novalidate'}} ) }}
+    {{ form_widget(categoryForm) }}
+    <button type="submit">Send!</button>
+    {{ form_end(categoryForm) }}
+
+
+
+
+{% endblock %}
+
+{% block title %}Add category! | {{ parent() }}{% endblock %}
