@@ -7,6 +7,8 @@ use App\Entity\Media;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,10 +17,10 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('description')
+            ->add('name', FileType::class, array('maxSize' => '1024k'))
+            ->add('description', TextareaType::class)
             #->add('dateCreated')
-            ->add('picture')
+            ->add('picture', FileType::class, array('maxSize' => '1024k'))
             #->add('extension')
             ->add('genre', EntityType::class,
                 array('class' => Genre::class, 'choice_label' => 'name'))

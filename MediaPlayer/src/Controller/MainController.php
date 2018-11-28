@@ -25,6 +25,7 @@ class MainController extends Controller
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
+        $roles = null;
         if($user!=null){
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
@@ -41,7 +42,8 @@ class MainController extends Controller
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'connecter' => $isConnect,
-            'cheminConnexion' => $cheminConnexion
+            'cheminConnexion' => $cheminConnexion,
+            'roles' => $roles
         ]);
     }
 
@@ -99,10 +101,6 @@ class MainController extends Controller
     public function formMedia(Request $request, EntityManagerInterface $em){
 
         $media = new Media();
-        $typeMedia = $em->getRepository(TypeMedia::class)->findAll() ;
-        $genre = $em->getRepository(Genre::class)->findAll();
-
-
 
         $formAdd = $this->createForm(MediaType::class, $media);
         $formAdd->handleRequest($request);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Genre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,23 +30,47 @@ class MediaController extends Controller
      */
     public function add(Request $request, EntityManagerInterface $em)
     {
+
         $media = new Media();
+        $formAdd = $this->createForm(MediaType::class,$media);
+        $formAdd->handleRequest($request);
 
-        $form = $this->createForm(MediaType::class,$media);
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
 
-        $form->handleRequest($request);
+        if($formAdd->isSubmitted() && $formAdd->isValid()){
+            $files = $request->files->get('media');
+            $file = $files['name'];
+            dump($file);
 
-        if($form->isSubmitted() && $form->isValid()){
-
+            dump('coucou');
+            $mediaRequest = $request->request->get('media');
+            dump($mediaRequest);
+            $name = $mediaRequest['name'];
+            $split = explode('.', $name);
+            $name = $split[0];
+            $extension = $split[1];
+            dump($name);
+            $media->setDescription($mediaRequest['description']);
+            $media->setExtension($extension);
+            $media->setPicture($mediaRequest['picture']);
+            $media->setDateCreated(new \DateTime());
             $em->persist($media);
             $em->flush();
 
             $this->addFlash('success', 'Media sauvegardé!');
-            return $this->redirectToRoute('media_list');
+            $_POST['trcic'];
+            return $this->redirectToRoute('main_index');
         }
-
-        return $this->render('media/add.html.twig', [
-            'mediaForm' => $form->createView()
+        return $this->render('main/add.html.twig', [
+            'formAdd' => $formAdd->createView(),
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
     }
 
