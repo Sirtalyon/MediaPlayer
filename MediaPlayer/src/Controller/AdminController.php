@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Genre;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,8 +31,9 @@ class AdminController extends Controller
     /**
      * @Route("admin/genre", name="genre_index")
      */
-    public function genre()
+    public function genre(EntityManagerInterface $em)
     {
+        $genres = $em->getRepository(Genre::class)->findAll();
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
@@ -39,16 +42,18 @@ class AdminController extends Controller
             $cheminConnexion = "logout";
         }
         return $this->render('genre/list.html.twig', [
+            'genres' => $genres,
             'controller_name' => 'GenreController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion
+
         ]);
     }
 
     /**
      * @Route("admin/media", name="media_index")
      */
-    public function media()
+    public function media(EntityManagerInterface $em)
     {
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
@@ -67,7 +72,7 @@ class AdminController extends Controller
     /**
      * @Route("admin/type_media", name="typemedia_index")
      */
-    public function typeMedia()
+    public function typeMedia(EntityManagerInterface $em)
     {
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
@@ -86,7 +91,7 @@ class AdminController extends Controller
     /**
      * @Route("admin/utilisateur", name="utilisateur_index")
      */
-    public function utilisateur()
+    public function utilisateur(EntityManagerInterface $em)
     {
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
