@@ -1,0 +1,55 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}COUCOU{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MEDIAPLAYER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('admin_index') }}">Accueil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('genre_index') }}">Genre</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('typemedia_index') }}">TypeMedia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('utilisateur_index') }}">Utilisateur</a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link" href="{{ path('media_index') }}">Media</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" style="float: right" >
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Ajouter un Genre</h1>
+            {{ form_start(formAdd) }}
+            <div class="form-group">
+                {{ form_label(formAdd.name, 'Name')}}
+                {{ form_widget(formAdd.name, {'attr': {'class': 'form-control'}})}}
+            </div>
+            <div class="form-group">
+                {{ form_label(formAdd.id_TypeMedia, 'TypeMedia')}}
+                {{ form_widget(formAdd.id_TypeMedia, {'attr': {'class': 'form-control'}})}}
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le Genre</button>
+            {{ form_end(formAdd) }}
+        </div>
+    </div>
+{% endblock %}
