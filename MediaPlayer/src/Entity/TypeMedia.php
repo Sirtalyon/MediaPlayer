@@ -80,4 +80,35 @@ class TypeMedia
 
         return $this;
     }
+
+    /**
+     * @return Collection|Genre[]
+     */
+    public function getGenre(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addMedium(Genre $medium): self
+    {
+        if (!$this->genres->contains($medium)) {
+            $this->genres[] = $medium;
+            $medium->setIdTypeMedia($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Genre $medium): self
+    {
+        if ($this->genres->contains($medium)) {
+            $this->genres->removeElement($medium);
+            // set the owning side to null (unless already changed) 1
+            if ($medium->getIdTypeMedia() === $this) {
+                $medium->setIdTypeMedia(null);
+            }
+        }
+
+        return $this;
+    }
 }
