@@ -16,11 +16,18 @@ class GenreController extends Controller
      */
     public function list(EntityManagerInterface $em)
     {
-
         $genres = $em->getRepository(Genre::class)->findAll();
-
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null){
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
         return $this->render('genre/list.html.twig', [
             'genres' => $genres,
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
     }
 

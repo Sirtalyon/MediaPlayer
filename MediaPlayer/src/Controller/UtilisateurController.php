@@ -16,11 +16,18 @@ class UtilisateurController extends Controller
      */
     public function list(EntityManagerInterface $em)
     {
-
-        $utilisateurs = $em->getRepository(Utilisateur::class)->findAllFull();
-
+        $utilisateurs = $em->getRepository(Utilisateur::class)->findAll();
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null){
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
         return $this->render('utilisateur/list.html.twig', [
             'utilisateurs' => $utilisateurs,
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
     }
 
