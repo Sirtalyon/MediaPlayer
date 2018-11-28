@@ -90,7 +90,7 @@ class Genre
     {
         if ($this->media->contains($medium)) {
             $this->media->removeElement($medium);
-            // set the owning side to null (unless already changed)
+            // set the owning side to null (unless already changed) 1
             if ($medium->getGenre() === $this) {
                 $medium->setGenre(null);
             }
