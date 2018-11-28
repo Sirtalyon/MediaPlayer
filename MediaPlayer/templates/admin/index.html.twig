@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('admin_index') }}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('genre_index') }}">Genre</a>
@@ -27,7 +27,7 @@
                     <a class="nav-link" href="{{ path('media_index') }}">Media</a>
                 </li>
             </ul>
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav" style="float: right" >
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
                 </li>

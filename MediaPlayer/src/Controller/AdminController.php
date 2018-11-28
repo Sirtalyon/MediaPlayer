@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Genre;
+use App\Entity\Media;
+use App\Entity\TypeMedia;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +58,10 @@ class AdminController extends Controller
      */
     public function media(EntityManagerInterface $em)
     {
+        $medias = $em->getRepository(Media::class)->findAll();
+        $genres = $em->getRepository(Genre::class)->findAll();
+        $utilisateurs = $em->getRepository(Utilisateur::class)->findAll();
+
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
@@ -63,6 +70,9 @@ class AdminController extends Controller
             $cheminConnexion = "logout";
         }
         return $this->render('media/list.html.twig', [
+            'medias' => $medias,
+            'genres' => $genres,
+            'utilisateurs' => $utilisateurs,
             'controller_name' => 'MediaController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion
@@ -74,6 +84,7 @@ class AdminController extends Controller
      */
     public function typeMedia(EntityManagerInterface $em)
     {
+        $typemedias = $em->getRepository(TypeMedia::class)->findAll();
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
@@ -81,7 +92,8 @@ class AdminController extends Controller
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
         }
-        return $this->render('genre/list.html.twig', [
+        return $this->render('type_media/list.html.twig', [
+            'typemedias' => $typemedias,
             'controller_name' => 'TypeMediaController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion
@@ -93,6 +105,7 @@ class AdminController extends Controller
      */
     public function utilisateur(EntityManagerInterface $em)
     {
+        $utilisateurs = $em->getRepository(Utilisateur::class)->findAll();
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
@@ -100,7 +113,8 @@ class AdminController extends Controller
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
         }
-        return $this->render('utlisateur/list.html.twig', [
+        return $this->render('utilisateur/list.html.twig', [
+            'utilisateurs' => $utilisateurs,
             'controller_name' => 'UtilisateurController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion
