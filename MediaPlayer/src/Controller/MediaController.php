@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Genre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,19 +21,9 @@ class MediaController extends Controller
 
         $medias = $em->getRepository(Media::class)->findAll();
 
-        $isConnect = "Se connecter";
-        $cheminConnexion = "login";
-        $user = $this->getUser();
-        if($user!=null){
-            $isConnect = "Se déconnecter";
-            $cheminConnexion = "logout";
-        }
         return $this->render('media/list.html.twig', [
             'medias' => $medias,
-            'connecter' => $isConnect,
-            'cheminConnexion' => $cheminConnexion
         ]);
-
     }
 
 
@@ -42,7 +34,9 @@ class MediaController extends Controller
     {
 
         $media = new Media();
+
         $formAdd = $this->createForm(MediaType::class,$media);
+
         $formAdd->handleRequest($request);
 
         $isConnect = "Se connecter";
@@ -54,27 +48,24 @@ class MediaController extends Controller
         }
 
         if($formAdd->isSubmitted() && $formAdd->isValid()){
-            $files = $request->files->get('media');
-            $file = $files['name'];
-            dump($file);
-
-            dump('coucou');
+            $file = $formAdd->get('name')->getData();
+            $filePic = $formAdd->get('picture')->getData();
+            $name = $file->getClientOriginalName();
+            $namePic = $filePic->getClientOriginalName();
             $mediaRequest = $request->request->get('media');
-            dump($mediaRequest);
-            $name = $mediaRequest['name'];
             $split = explode('.', $name);
-            $name = $split[0];
+            $nameSep = $split[0];
             $extension = $split[1];
-            dump($name);
+            $media->setName($nameSep);
             $media->setDescription($mediaRequest['description']);
             $media->setExtension($extension);
-            $media->setPicture($mediaRequest['picture']);
+            $media->setPicture($namePic);
             $media->setDateCreated(new \DateTime());
+            $media->setUtilisateur($user);
             $em->persist($media);
             $em->flush();
 
             $this->addFlash('success', 'Media sauvegardé!');
-            $_POST['trcic'];
             return $this->redirectToRoute('main_index');
         }
         return $this->render('main/add.html.twig', [
