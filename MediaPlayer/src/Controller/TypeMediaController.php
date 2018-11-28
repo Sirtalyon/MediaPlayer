@@ -12,15 +12,22 @@ use App\Form\TypeMediaType;
 class TypeMediaController extends Controller
 {
     /**
-     * @Route("/typemedia/list", name="type_media_list")
+     * @Route("/type_media/list", name="type_media_list")
      */
     public function list(EntityManagerInterface $em)
     {
-
         $typemedias = $em->getRepository(TypeMedia::class)->findAll();
-
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null){
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
         return $this->render('type_media/list.html.twig', [
-            'medias' => $typemedias,
+            'typemedias' => $typemedias,
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
     }
 

@@ -19,9 +19,19 @@ class MediaController extends Controller
 
         $medias = $em->getRepository(Media::class)->findAll();
 
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null){
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
         return $this->render('media/list.html.twig', [
             'medias' => $medias,
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
+
     }
 
 
