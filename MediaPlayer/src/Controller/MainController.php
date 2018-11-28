@@ -20,7 +20,7 @@ class MainController extends Controller
     /**
      * @Route("/", name="main_index")
      */
-    public function index( UserPasswordEncoderInterface $encoder)
+    public function index( UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
@@ -39,12 +39,14 @@ class MainController extends Controller
                 ]);
             }
         }
+
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion,
             'roles' => $roles
         ]);
+
     }
 
     /**

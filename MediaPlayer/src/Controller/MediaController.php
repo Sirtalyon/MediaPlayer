@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Genre;
+use App\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -18,11 +19,23 @@ class MediaController extends Controller
      */
     public function list(EntityManagerInterface $em)
     {
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
 
-        $medias = $em->getRepository(Media::class)->findAll();
+        $userId = $user->getId();
+        $medias = $em->getRepository(Media::class)->findBy(array('utilisateur'=> $userId));
+        $genres = $em->getRepository(Genre::class)->findAll();
 
-        return $this->render('media/list.html.twig', [
+        return $this->render('main/mediaUser.html.twig', [
             'medias' => $medias,
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion,
+            'genres' => $genres
         ]);
     }
 
@@ -42,6 +55,7 @@ class MediaController extends Controller
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
+
         if($user!=null) {
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
@@ -54,6 +68,8 @@ class MediaController extends Controller
             $namePic = $filePic->getClientOriginalName();
             $mediaRequest = $request->request->get('media');
             $split = explode('.', $name);
+            $file->move('C:\wamp64\www\Repository\MediaPlayer\public\media\FileUpload', $name);
+            $filePic->move('C:\wamp64\www\Repository\MediaPlayer\public\media\PicUpload', $namePic);
             $nameSep = $split[0];
             $extension = $split[1];
             $media->setName($nameSep);
@@ -66,7 +82,7 @@ class MediaController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Media sauvegardé!');
-            return $this->redirectToRoute('main_index');
+            return $this->redirectToRoute('media_list');
         }
         return $this->render('main/add.html.twig', [
             'formAdd' => $formAdd->createView(),
