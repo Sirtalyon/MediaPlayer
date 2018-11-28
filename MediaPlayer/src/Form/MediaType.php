@@ -17,10 +17,10 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', FileType::class, array('maxSize' => '1024k'))
+            ->add('name', FileType::class)
             ->add('description', TextareaType::class)
             #->add('dateCreated')
-            ->add('picture', FileType::class, array('maxSize' => '1024k'))
+            ->add('picture', FileType::class)
             #->add('extension')
             ->add('genre', EntityType::class,
                 array('class' => Genre::class, 'choice_label' => 'name'))
