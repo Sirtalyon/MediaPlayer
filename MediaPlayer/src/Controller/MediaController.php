@@ -58,10 +58,12 @@ class MediaController extends Controller
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
+        $username = null;
 
         if($user!=null) {
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
+            $username = $user->getUsername();
         }
 
         if($formAdd->isSubmitted() && $formAdd->isValid()){
@@ -89,7 +91,8 @@ class MediaController extends Controller
         return $this->render('main/add.html.twig', [
             'formAdd' => $formAdd->createView(),
             'connecter' => $isConnect,
-            'cheminConnexion' => $cheminConnexion
+            'cheminConnexion' => $cheminConnexion,
+            'user' => $username
         ]);
     }
 
@@ -148,6 +151,10 @@ class MediaController extends Controller
      */
     public function del(EntityManagerInterface $em,Media $media)
     {
+        $name = $media->getName();
+        $picture = $media->getPicture();
+        unlink('C:\wamp64\www\Repository\MediaPlayer\public\media\FileUpload\\'.$name);
+        unlink('C:\wamp64\www\Repository\MediaPlayer\public\media\PicUpload\\'.$picture);
         $em->remove($media);
         $em->flush();
         $this->addFlash("success", "Media supprimé!");

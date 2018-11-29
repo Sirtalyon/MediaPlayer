@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link href="../public/css/app.css">
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/tooltip.js') }}"></script>
@@ -10,7 +11,7 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 </head>
-<body class="text-center"  style="display: flex !important; " >
+<body class="text-center bg-warning"  style="display: flex !important; background-color: steelblue;" >
     <div class="container-fluid my-auto">
 
     {% block body %}{% endblock %}

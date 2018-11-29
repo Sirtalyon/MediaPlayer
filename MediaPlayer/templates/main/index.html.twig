@@ -1,31 +1,31 @@
 {% extends 'base.html.twig'  %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
-        <label class="navbar-brand" href="#">MEDIAPLAYER</label>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5 rounded" style="background-color: #4e555b  !important; margin-bottom: 0 !important">
+        <label class="navbar-brand text-warning" href="#" >MEDIAMANIA</label>
+        <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('main_index') }}">Accueil<span class="sr-only">(current)</span></a>
+                <li class="nav-item active" style="font-size: 20px">
+                    <a class="nav-link text-white" href="{{ path('main_index') }}">Accueil<span class="sr-only">(current)</span></a>
                 </li>
                 {% if roles!=null and "ROLE_USER" in roles %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('media_list') }}">Mes Médias</a>
+                <li class="nav-item" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('media_list') }}">Mes Médias</a>
                 </li>
                 {% endif %}
             </ul>
             <ul class="navbar-nav" style="float: right;" >
-                <li class="nav-item " style="margin-right: 10px;">
-                    <a class="nav-link" ><label>{{ user }}</label></a>
+                <li class="nav-item " style="margin-right: 10px; font-size: 20px">
+                    <a class="nav-link text-white" ><label>{{ user }}</label></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+                <li class="nav-item" style="font-size: 20px;">
+                    <a class="nav-link text-warning" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
                 </li>
             </ul>
 
@@ -37,7 +37,7 @@
     </style>
 
 
-    <div class="example-wrapper">
-        <h1>COUCOU</h1>
-    </div>
+<div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
+
+</div>
 {% endblock %}

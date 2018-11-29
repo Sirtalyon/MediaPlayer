@@ -1,57 +1,61 @@
 {% extends 'base.html.twig'  %}
 
-{% block title %}COUCOU{% endblock %}
+{% block title %}Ajouter un média{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
-        <label class="navbar-brand" href="#">MEDIAPLAYER</label>
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5 rounded" style="background-color: lightskyblue  !important; margin-bottom: 0 !important">
+        <label class="navbar-brand text-warning" href="#">MEDIAMANIA</label>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('main_index') }}">Accueil<span class="sr-only">(current)</span></a>
+                <li class="nav-item " style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('main_index') }}">Accueil</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('media_list') }}">Mes Médias</a>
-                </li>
+                    <li class="nav-item active" style="font-size: 20px">
+                        <a class="nav-link text-warning" href="{{ path('media_list') }}">Mes Médias<span class="sr-only">(current)</span></a>
+                    </li>
             </ul>
-            <ul class="navbar-nav" style="float: right;"  >
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+            <ul class="navbar-nav" style="float: right;" >
+                <li class="nav-item " style="margin-right: 10px; font-size: 20px">
+                    <a class="nav-link text-white" ><label>{{ user }}</label></a>
                 </li>
-
+                <li class="nav-item" style="font-size: 20px;">
+                    <a class="nav-link text-warning" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+                </li>
             </ul>
 
         </div>
     </nav>
-    <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-                <h1>Ajouter un Média</h1>
-                {{ form_start(formAdd) }}
-                <div class="form-group">
-                    {{ form_label(formAdd.name, 'Fichier')}}
-                    <br>
-                    {{ form_widget(formAdd.name, {'attr': {'class': 'btn btn-info w-100', 'accept':'audio/*, video/*'}})}}
-                </div>
-                <div class="form-group">
-                    {{ form_label(formAdd.description, 'Description')}}
-                    {{ form_widget(formAdd.description, {'attr': {'class': 'form-control'}})}}
-                </div>
-                <div class="form-group">
-                    {{ form_label(formAdd.picture, 'Fichier Image')}}
-                    <br>
-                    {{ form_widget(formAdd.picture, {'attr': {'class': 'btn btn-info w-100', 'accept':'image/*'}})}}
-                </div>
+    <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
+        <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                    <h2>Ajouter un Média</h2>
+                    {{ form_start(formAdd) }}
+                    <div class="form-group">
+                        {{ form_label(formAdd.name, 'Fichier')}}
+                        <br>
+                        {{ form_widget(formAdd.name, {'attr': {'class': 'btn btn-info w-100', 'accept':'audio/*, video/*'}})}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formAdd.description, 'Description')}}
+                        {{ form_widget(formAdd.description, {'attr': {'class': 'form-control'}})}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(formAdd.picture, 'Fichier Image')}}
+                        <br>
+                        {{ form_widget(formAdd.picture, {'attr': {'class': 'btn btn-info w-100', 'accept':'image/*'}})}}
+                    </div>
 
-                <div class="form-group">
-                    {{ form_label(formAdd.genre, 'Genre')}}
-                    {{ form_widget(formAdd.genre, {'attr': {'class': 'form-control'}})}}
-                </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
-            {{ form_end(formAdd) }}
+                    <div class="form-group">
+                        {{ form_label(formAdd.genre, 'Genre')}}
+                        {{ form_widget(formAdd.genre, {'attr': {'class': 'form-control'}})}}
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
+                {{ form_end(formAdd) }}
+            </div>
         </div>
     </div>
 {% endblock %}

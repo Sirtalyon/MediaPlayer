@@ -4882,7 +4882,7 @@ input[type="button"].btn-block {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
+  background-color: #4e555b;
   border-radius: 0.3rem;
 }
 
@@ -9028,5 +9028,10 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+.gradientNav{
+  background-color: #1fc8db !important;
+  background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 }
 /*# sourceMappingURL=bootstrap.css.map */
