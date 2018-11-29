@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UtilisateurController extends Controller
 {
@@ -35,25 +36,27 @@ class UtilisateurController extends Controller
     /**
      * @Route("/utilisateur/add", name="utilisateur_add")
      */
-    public function add(Request $request, EntityManagerInterface $em)
+    public function add(Request $request, EntityManagerInterface $em,UserPasswordEncoderInterface $encoder)
     {
-        $utilisateur = new TypeMedia();
+        $user = new Utilisateur();
 
-        $form = $this->createForm(TypeMediaType::class,$utilisateur);
-
+        $form = $this->createForm(UtilisateurType::class, $user);
         $form->handleRequest($request);
-
         if($form->isSubmitted() && $form->isValid()){
+            //crypter le mot de passe
+            $pass = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($pass);
+            $user->setRoles(['ROLE_USER']);
 
-            $em->persist($utilisateur);
+            $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Utilisateur sauvegardé!');
-            return $this->redirectToRoute('utilisateur_list');
+            return $this->redirectToRoute('login');
+
         }
 
-        return $this->render('utiisateur/add.html.twig', [
-            'utilisateurForm' => $form->createView()
+        return $this->render('main/register.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

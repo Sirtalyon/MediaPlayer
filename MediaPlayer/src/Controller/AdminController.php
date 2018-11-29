@@ -8,10 +8,13 @@ use App\Entity\TypeMedia;
 use App\Entity\Utilisateur;
 use App\Form\GenreType;
 use App\Form\MediaType;
+use App\Form\TypeMediaType;
+use App\Form\UtilisateurType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends Controller
 {
@@ -195,16 +198,15 @@ class AdminController extends Controller
         if($formAdd->isSubmitted() && $formAdd->isValid()){
             $genreRequest = $request->request->get('genre');
             $typemedias = $em->getRepository(TypeMedia::class)->findBy(array('id'=> $genreRequest['id_TypeMedia']));
-            
             $genre->setName($genreRequest['name']);
-            $genre->setIdTypeMedia($typemedia['id']);
+            $genre->setIdTypeMedia($typemedias[0]);
             $em->persist($genre);
             $em->flush();
 
             $this->addFlash('success', 'Genre sauvegardé!');
 
 
-            return $this->redirectToRoute('admin_index');
+            return $this->redirectToRoute('genre_index');
         }
         return $this->render('genre/add.html.twig', [
             'formAdd' => $formAdd->createView(),
@@ -213,4 +215,109 @@ class AdminController extends Controller
             'cheminConnexion' => $cheminConnexion
         ]);
     }
+
+
+    /**
+     * @Route("admin/utilisateur/add", name="utilisateur_admin")
+     */
+    public function addUtilisateur(Request $request, EntityManagerInterface $em,UserPasswordEncoderInterface $encoder)
+    {
+        $utilisateur = new Utilisateur();
+
+        $formAdd = $this->createForm(UtilisateurType::class,$utilisateur);
+
+        $formAdd->handleRequest($request);
+
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
+
+
+        if($formAdd->isSubmitted() && $formAdd->isValid()){
+            //crypter le mot de passe
+            $pass = $encoder->encodePassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($pass);
+            $utilisateur->setRoles(['ROLE_USER']);
+            $em->persist($utilisateur);
+            $em->flush();
+
+
+            $this->addFlash('success', 'Utilisateur sauvegardé!');
+            return $this->redirectToRoute('utilisateur_index');
+        }
+
+        return $this->render('utilisateur/add.html.twig', [
+            'formAdd' => $formAdd->createView(),
+            'controller_name' => 'UtilisateurController',
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
+        ]);
+    }
+
+    /**
+     * @Route("admin/addtypemedia", name="typemedia_ajouter")
+     */
+    public function addTypeMedia(Request $request,EntityManagerInterface $em)
+    {
+        $typemedia = new TypeMedia();
+
+        $formAdd = $this->createForm(TypeMediaType::class,$typemedia);
+
+        $formAdd->handleRequest($request);
+
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
+
+
+        if($formAdd->isSubmitted() && $formAdd->isValid()){
+            $em->persist($typemedia);
+            $em->flush();
+
+
+            $this->addFlash('success', 'TypeMedia sauvegardé!');
+            return $this->redirectToRoute('typemedia_index');
+        }
+
+        return $this->render('type_media/add.html.twig', [
+            'formAdd' => $formAdd->createView(),
+            'controller_name' => 'TypeMediaController',
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
+        ]);
+    }
+
+    /**
+     * @Route("/admin/update/{id}", name="typemedia_update", requirements={"id":"\d+"})
+     */
+    public function update(TypeMedia $typemedia, Request $request, EntityManagerInterface $em)
+    {
+
+        $form = $this->createForm(TypeMediaType::class,$typemedia);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $em->persist($typemedia);
+            $em->flush();
+
+            $this->addFlash('success', 'TypeMedia mis à jour!');
+            return $this->redirectToRoute('typemedia_index');
+        }
+
+
+        return $this->render('type-media/update.html.twig', [
+            'typemediaForm' => $form->createView()
+        ]);
+    }
+
 }

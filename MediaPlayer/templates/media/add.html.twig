@@ -36,31 +36,33 @@
         </div>
     </nav>
 
-    <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
-        <div class="shadow p-3 mb-5 bg-white rounded">
-            <h1>Ajouter un Média</h1>
-            {{ form_start(formAdd) }}
-            <div class="form-group">
-                {{ form_label(formAdd.name, 'Fichier')}}
-                <br>
-                {{ form_widget(formAdd.name, {'attr': {'class': 'btn btn-info w-100', 'accept':'audio/*, video/*'}})}}
-            </div>
-            <div class="form-group">
-                {{ form_label(formAdd.description, 'Description')}}
-                {{ form_widget(formAdd.description, {'attr': {'class': 'form-control'}})}}
-            </div>
-            <div class="form-group">
-                {{ form_label(formAdd.picture, 'Fichier Image')}}
-                <br>
-                {{ form_widget(formAdd.picture, {'attr': {'class': 'btn btn-info w-100', 'accept':'image/*'}})}}
-            </div>
+    <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
+        <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                <h2>Ajouter un Média</h2>
+                {{ form_start(formAdd) }}
+                <div class="form-group">
+                    {{ form_label(formAdd.name, 'Fichier')}}
+                    <br>
+                    {{ form_widget(formAdd.name, {'attr': {'class': 'btn btn-warning w-100', 'accept':'audio/*, video/*'}})}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formAdd.description, 'Description')}}
+                    {{ form_widget(formAdd.description, {'attr': {'class': 'form-control'}})}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formAdd.picture, 'Fichier Image')}}
+                    <br>
+                    {{ form_widget(formAdd.picture, {'attr': {'class': 'btn btn-warning w-100', 'accept':'image/*'}})}}
+                </div>
 
-            <div class="form-group">
-                {{ form_label(formAdd.genre, 'Genre')}}
-                {{ form_widget(formAdd.genre, {'attr': {'class': 'form-control'}})}}
+                <div class="form-group">
+                    {{ form_label(formAdd.genre, 'Genre')}}
+                    {{ form_widget(formAdd.genre, {'attr': {'class': 'form-control'}})}}
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
+                {{ form_end(formAdd) }}
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Ajouter le média</button>
-            {{ form_end(formAdd) }}
         </div>
     </div>
 {% endblock %}
