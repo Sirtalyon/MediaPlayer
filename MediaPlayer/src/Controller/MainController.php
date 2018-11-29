@@ -41,13 +41,28 @@ class MainController extends Controller
                 ]);
             }
         }
-
+        $medias = $em->getRepository(Media::class)->findAll();
+        $lastMedias = [];
+        if($medias!=null) {
+            if(count($medias)>5) {
+                for ($i = 0; $i < 5; $i++) {
+                    array_push($lastMedias, $medias[$i]);
+                }
+            }else
+            {
+                for ($i = 0; $i < count($medias); $i++) {
+                    array_push($lastMedias, $medias[$i]);
+                }
+            }
+        }
+        dump($lastMedias);
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion,
             'roles' => $roles,
-            'user' => $username
+            'user' => $username,
+            'lastMedias' => $lastMedias
         ]);
 
     }
