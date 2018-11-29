@@ -44,8 +44,8 @@ class MainController extends Controller
         $medias = $em->getRepository(Media::class)->findAll();
         $lastMedias = [];
         if($medias!=null) {
-            if(count($medias)>5) {
-                for ($i = 0; $i < 5; $i++) {
+            if(count($medias)>9) {
+                for ($i = 0; $i < 9; $i++) {
                     array_push($lastMedias, $medias[$i]);
                 }
             }else

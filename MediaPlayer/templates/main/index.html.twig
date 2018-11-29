@@ -39,21 +39,18 @@
         </div>
         <div class="row" style="margin-top: 20px;">
         {% for media in lastMedias %}
-                <div class="col-md-4" style="position: relative; margin-bottom: 20px;">
+                <div class="col-md-4">
                     <h3>{{ media.name }}</h3>
                     {% if media.extension == 'mp3' %}
-                        <img src="{{ asset('media/PicUpload/')}}{{ media.picture }}" width="380" height="250">
+                        <img src="{{ asset('media/PicUpload/')}}{{ media.picture }}" width="auto" height="auto" style="max-width: 380px; max-height: 250px;">
                         <audio controls>
                             <source src="{{ asset('media/FileUpload/')}}{{ media.name }}" type="audio/{{ media.extension }}">
                         </audio>
                     {% else %}
-                        <video width="380" height="250" controls>
-                            <source src="{{ asset('media/FileUpload/')}}{{ media.name }}" type="video/{{ media.extension }}">
+                        <video width="auto" height="auto" controls style="max-width: 380px; max-height: 250px;">
+                            <source src="{{ asset('media/FileUpload/')}}{{ media.name }}" type="video/{{ media.extension }}" >
                         </video>
                     {% endif %}
-                    <p style="color: white; font-size: 12px;"><i><u>Nom:</u></i> {{ media.name }}</p>
-                    <p style="color: white; font-size: 12px;"><i><u>Description:</u></i> {{ media.description }}</p>
-                    <p style="color: white; font-size: 12px;"><i><u>Auteur:</u></i> {{ media.description }}</p>
                 </div>
         {% endfor %}
         </div>

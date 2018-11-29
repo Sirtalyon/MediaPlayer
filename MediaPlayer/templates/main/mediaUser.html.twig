@@ -32,17 +32,23 @@
 
 
     <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
-        <div class="col-md-12" style="border-bottom: 4px solid steelblue">
-            <h3>Liste des Médias</h3>
-        </div>
-        <div class="col-md-12">
-            <br>
-            <button type="button" style="float: right" class="btn btn-warning btn-lg" onclick="window.location='{{ path("media_add") }}'">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            </button>
-            <br><br><br><br>
-        </div>
-
+        <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5 rounded" style="background-color: #4e555b !important; width: 100%">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item " style="font-size: 20px">
+                    <a class="nav-link text-white" href="{{ path('main_index') }}">Audio<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('media_list') }}">Vidéos</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" style="float: right;" >
+                <li class="nav-item " style="margin-right: 10px; font-size: 20px">
+                    <button type="button" style="float: right" class="btn btn-warning btn-lg" onclick="window.location='{{ path("media_add") }}'">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
         <div class="col-md-12">
             <table id="mytable" class="table table-bordered table-striped">
                 <thead>
@@ -71,7 +77,7 @@
                             {% endif %}
                         {% endfor %}
                         <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs glyphicon glyphicon-pencil" href="{{ path("media_update", {'id': media.id})}}"></a></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="{{ path("media_del", {'id': media.id})}}"></a></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Remove"><a class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="{{ path("media_del", {'id': media.id})}}"></a></p></td>
                     </tr>
                 {% endfor %}
 

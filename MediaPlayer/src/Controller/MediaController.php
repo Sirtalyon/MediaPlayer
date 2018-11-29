@@ -151,10 +151,6 @@ class MediaController extends Controller
      */
     public function del(EntityManagerInterface $em,Media $media)
     {
-        $name = $media->getName();
-        $picture = $media->getPicture();
-        unlink('C:\wamp64\www\Repository\MediaPlayer\public\media\FileUpload\\'.$name);
-        unlink('C:\wamp64\www\Repository\MediaPlayer\public\media\PicUpload\\'.$picture);
         $em->remove($media);
         $em->flush();
         $this->addFlash("success", "Media supprimé!");
