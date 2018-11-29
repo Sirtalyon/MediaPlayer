@@ -1,0 +1,67 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}COUCOU{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">MEDIAPLAYER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('main_index') }}">Accueil<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="{{ path('media_list') }}">Mes Médias</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" style="float: right;" >
+                <li class="nav-item " style="margin-right: 10px;">
+                    <a class="nav-link" ><label>{{ user }}</label></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <h1>Modifier un Média</h1>
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.name, 'Fichier')}}
+                <br>
+                {{ form_widget(form.name, {'attr': {'class': 'btn btn-info w-100', 'accept':'audio/*, video/*'}})}}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.description, 'Description')}}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}})}}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.picture, 'Fichier Image')}}
+                <br>
+                {{ form_widget(form.picture, {'attr': {'class': 'btn btn-info w-100', 'accept':'image/*'}})}}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.genre, 'Genre')}}
+                {{ form_widget(form.genre, {'attr': {'class': 'form-control'}})}}
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Modifier</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-lg btn-danger btn-block" style="margin-bottom: 10px;">Annuler</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

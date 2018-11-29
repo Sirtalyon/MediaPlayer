@@ -19,6 +19,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav" style="float: right;" >
+                <li class="nav-item " style="margin-right: 10px;">
+                    <a class="nav-link" ><label>{{ user }}</label></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
                 </li>
@@ -66,8 +69,8 @@
                                 <td>{{ genre.getName() }}</td>
                             {% endif %}
                         {% endfor %}
-                        <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-primary btn-xs glyphicon glyphicon-pencil" href="{{ path("media_update", {'id': media.id})}}"></a></p></td>
+                        <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a class="btn btn-danger btn-xs glyphicon glyphicon-trash" href="{{ path("media_del", {'id': media.id})}}"></a></p></td>
                     </tr>
                 {% endfor %}
 

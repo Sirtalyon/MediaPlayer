@@ -22,9 +22,11 @@ class MediaController extends Controller
         $isConnect = "Se connecter";
         $cheminConnexion = "login";
         $user = $this->getUser();
+        $username = null;
         if($user!=null) {
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
+            $username = $user->getUsername();
         }
 
         $userId = $user->getId();
@@ -35,7 +37,8 @@ class MediaController extends Controller
             'medias' => $medias,
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion,
-            'genres' => $genres
+            'genres' => $genres,
+            'user' => $username
         ]);
     }
 
@@ -70,9 +73,8 @@ class MediaController extends Controller
             $split = explode('.', $name);
             $file->move('C:\wamp64\www\Repository\MediaPlayer\public\media\FileUpload', $name);
             $filePic->move('C:\wamp64\www\Repository\MediaPlayer\public\media\PicUpload', $namePic);
-            $nameSep = $split[0];
             $extension = $split[1];
-            $media->setName($nameSep);
+            $media->setName($name);
             $media->setDescription($mediaRequest['description']);
             $media->setExtension($extension);
             $media->setPicture($namePic);
@@ -101,18 +103,42 @@ class MediaController extends Controller
 
         $form->handleRequest($request);
 
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        $username = null;
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+            $username = $user->getUsername();
+        }
+
         if($form->isSubmitted() && $form->isValid()){
 
+            $file = $form->get('name')->getData();
+            $filePic = $form->get('picture')->getData();
+            $name = $file->getClientOriginalName();
+            $namePic = $filePic->getClientOriginalName();
+            $mediaRequest = $request->request->get('media');
+            $split = explode('.', $name);
+            $file->move('C:\wamp64\www\Repository\MediaPlayer\public\media\FileUpload', $name);
+            $filePic->move('C:\wamp64\www\Repository\MediaPlayer\public\media\PicUpload', $namePic);
+            $extension = $split[1];
+            $media->setName($name);
+            $media->setDescription($mediaRequest['description']);
+            $media->setExtension($extension);
+            $media->setPicture($namePic);
             $em->persist($media);
             $em->flush();
 
-            $this->addFlash('success', 'Media mis à jour!');
+            $this->addFlash('success', 'Media sauvegardé!');
             return $this->redirectToRoute('media_list');
         }
-
-
         return $this->render('media/update.html.twig', [
-            'mediaForm' => $form->createView()
+            'form' => $form->createView(),
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion,
+            'user' => $username
         ]);
     }
 
@@ -122,12 +148,6 @@ class MediaController extends Controller
      */
     public function del(EntityManagerInterface $em,Media $media)
     {
-        //vérification côté serveur
-        if(count($media->getIdeas()) > 0){
-            $this->addFlash('error', "Impossible de supprimer le media");
-            return $this->redirectToRoute('media_list');
-        }
-
         $em->remove($media);
         $em->flush();
         $this->addFlash("success", "Media supprimé!");

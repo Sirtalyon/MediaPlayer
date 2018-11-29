@@ -26,10 +26,12 @@ class MainController extends Controller
         $cheminConnexion = "login";
         $user = $this->getUser();
         $roles = null;
+        $username = null;
         if($user!=null){
             $isConnect = "Se déconnecter";
             $cheminConnexion = "logout";
             $roles = $user->getRoles();
+            $username = $user->getUsername();
             if($roles[0]=="ROLE_ADMIN")
             {
                 return $this->redirectToRoute('admin_index', [
@@ -44,7 +46,8 @@ class MainController extends Controller
             'controller_name' => 'MainController',
             'connecter' => $isConnect,
             'cheminConnexion' => $cheminConnexion,
-            'roles' => $roles
+            'roles' => $roles,
+            'user' => $username
         ]);
 
     }
