@@ -15,10 +15,10 @@
                     <a class="nav-link text-warning" href="{{ path('admin_index') }}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active" style="font-size: 20px">
-                    <a class="nav-link text-white" href="{{ path('genre_index') }}">Genre</a>
+                    <a class="nav-link text-warning" href="{{ path('genre_index') }}">Genre</a>
                 </li>
                 <li class="nav-item " style="font-size: 20px">
-                    <a class="nav-link text-warning" href="{{ path('typemedia_index') }}">TypeMedia</a>
+                    <a class="nav-link text-white" href="{{ path('typemedia_index') }}">TypeMedia</a>
                 </li>
                 <li class="nav-item" style="font-size: 20px">
                     <a class="nav-link text-warning" href="{{ path('utilisateur_index') }}">Utilisateur</a>
@@ -37,16 +37,20 @@
     </nav>
 
 
-    <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
-        <div class="text-center">
-            {{ form_start(typemediaForm, {'attr': {'novalidate': 'novalidate'}} ) }}
-            {{ form_widget(typemediaForm) }}
-            <button type="submit">Enregistrer</button>
-            {{ form_end(typemediaForm) }}
-
+        <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
+            <div class="col-md-12" style="padding-left: 35%; padding-right: 35%;">
+                <div class="shadow p-3 mb-5 bg-white rounded">
+                    <h2>Modifier un type de média</h2>
+                    {{ form_start(typemediaForm)}}
+                    <div class="form-group">
+                        {{ form_label(typemediaForm.name, 'Nom')}}
+                        {{ form_widget(typemediaForm.name, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" style="margin-bottom: 10px;">Enregistrer</button>
+                    {{ form_end(typemediaForm) }}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
 {% endblock %}
