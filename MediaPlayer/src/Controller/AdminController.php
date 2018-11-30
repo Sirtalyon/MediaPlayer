@@ -298,12 +298,20 @@ class AdminController extends Controller
     /**
      * @Route("/admin/update/{id}", name="typemedia_update", requirements={"id":"\d+"})
      */
-    public function update(TypeMedia $typemedia, Request $request, EntityManagerInterface $em)
+    public function updateTypeMedia(TypeMedia $typemedia, Request $request, EntityManagerInterface $em)
     {
 
         $form = $this->createForm(TypeMediaType::class,$typemedia);
 
         $form->handleRequest($request);
+
+        $isConnect = "Se connecter";
+        $cheminConnexion = "login";
+        $user = $this->getUser();
+        if($user!=null) {
+            $isConnect = "Se déconnecter";
+            $cheminConnexion = "logout";
+        }
 
         if($form->isSubmitted() && $form->isValid()){
 
@@ -315,9 +323,23 @@ class AdminController extends Controller
         }
 
 
-        return $this->render('type-media/update.html.twig', [
-            'typemediaForm' => $form->createView()
+        return $this->render('type_media/update.html.twig', [
+            'typemediaForm' => $form->createView(),
+            'connecter' => $isConnect,
+            'cheminConnexion' => $cheminConnexion
         ]);
     }
 
+
+    /**
+     * @Route("/admin/del", name="typemedia_del_default", defaults={"id":0})
+     * @Route("/admin/del/{id}", name="typemedia_del")
+     */
+    public function del(EntityManagerInterface $em,TypeMedia $typemedia)
+    {
+        $em->remove($typemedia);
+        $em->flush();
+        $this->addFlash("success", "Type Media supprimé!");
+        return $this->redirectToRoute("typemedia_index");
+    }
 }
