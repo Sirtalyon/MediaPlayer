@@ -3,33 +3,33 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MEDIAMANIA</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-5 rounded" style="background-color: #4e555b !important; margin-bottom: 0 !important">
+        <label class="navbar-brand text-warning" href="#">MEDIAMANIA</label>
+        <button class="navbar-toggler bg-warning" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin_index') }}">Accueil <span class="sr-only">(current)</span></a>
+                <li class="nav-item" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('admin_index') }}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('genre_index') }}">Genre</a>
+                <li class="nav-item active" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('genre_index') }}">Genre</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('typemedia_index') }}">TypeMedia</a>
+                <li class="nav-item " style="font-size: 20px">
+                    <a class="nav-link text-white" href="{{ path('typemedia_index') }}">TypeMedia</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('utilisateur_index') }}">Utilisateur</a>
+                <li class="nav-item" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('utilisateur_index') }}">Utilisateur</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('media_index') }}">Media</a>
+                <li class="nav-item" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path('media_index') }}">Media</a>
                 </li>
             </ul>
-            <ul class="navbar-nav" style="float: right" >
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
+            <ul class="navbar-nav" style="float: right">
+                <li class="nav-item" style="font-size: 20px">
+                    <a class="nav-link text-warning" href="{{ path(cheminConnexion) }}">{{ connecter }}</a>
                 </li>
             </ul>
 
@@ -37,8 +37,9 @@
     </nav>
 
 
+    <div class="row jumbotron" style=" margin: 0 auto; width: 90%;">
     <div style="width: 100%; max-width: 330px; padding: 15px; margin: auto; margin-top: 50px !important;" class="my-auto shadow p-3 mb-5 bg-white rounded">
-        <h1 class="h3 mb-3 font-weight-normal" style="color:#1e7e34;">Ajouter un Type Media</h1>
+        <h2 class="h3 mb-3 font-weight-normal" style="color:#1e7e34;">Ajouter un Type Media</h2>
         {{ form_start(formAdd) }}
         <div class="form-group">
             {{ form_label(formAdd.name, 'Nom') }}
