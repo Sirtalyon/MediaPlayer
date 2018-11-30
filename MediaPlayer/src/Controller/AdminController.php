@@ -342,4 +342,16 @@ class AdminController extends Controller
         $this->addFlash("success", "Type Media supprimé!");
         return $this->redirectToRoute("typemedia_index");
     }
+
+    /**
+     * @Route("/admin/del", name="genre_del_default", defaults={"id":0})
+     * @Route("/admin/del/{id}", name="genre_del")
+     */
+    public function delGenre(EntityManagerInterface $em,Genre $genre)
+    {
+        $em->remove($genre);
+        $em->flush();
+        $this->addFlash("success", "Genre supprimé!");
+        return $this->redirectToRoute("genre_index");
+    }
 }

@@ -61,33 +61,8 @@ class UtilisateurController extends Controller
     }
 
     /**
-     * @Route("/utilisateur/update/{id}", name="utilisateur_update", requirements={"id":"\d+"})
-     */
-    public function update(UtilisateurType $utilisateur, Request $request, EntityManagerInterface $em)
-    {
-
-        $form = $this->createForm(UtilisateurType::class,$utilisateur);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-
-            $em->persist($utilisateur);
-            $em->flush();
-
-            $this->addFlash('success', 'Utilisateur mis à jour!');
-            return $this->redirectToRoute('utilisateur_list');
-        }
-
-
-        return $this->render('utilisateur/update.html.twig', [
-            'utilisateurForm' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/utilisateur/del", name="utilisateur_del_default", defaults={"id":0})
-     * @Route("/utilisateur/del/{id}", name="utilisateur_del")
+     * @Route("/admin/utilisateur/del", name="utilisateur_del_default", defaults={"id":0})
+     * @Route("/admin/utilisateur/del/{id}", name="utilisateur_del")
      */
     public function del(EntityManagerInterface $em,Utilisateur $utilisateur)
     {
